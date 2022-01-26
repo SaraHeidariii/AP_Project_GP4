@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>815</width>
     <height>1000</height>
    </rect>
   </property>
@@ -2589,7 +2589,7 @@
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="sky">
+    <widget class="QPushButton" name="purple">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -2599,7 +2599,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 255, 255);</string>
+      <string notr="true">background-color: rgb(128, 0, 128);</string>
      </property>
      <property name="text">
       <string/>
@@ -2694,8 +2694,8 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>26</height>
+     <width>815</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
