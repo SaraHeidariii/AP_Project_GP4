@@ -1,6 +1,5 @@
 import os
 import sys
-
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5 import uic
@@ -77,6 +76,7 @@ class Mainwindow(QMainWindow, Form):
         self.white.clicked.connect(lambda: self.set_color("white"))
         self.yellow.clicked.connect(lambda: self.set_color("yellow"))
         self.green.clicked.connect(lambda: self.set_color("green"))
+        self.confirmbtn.clicked()
 
     def hide_object(self, objects):
         for obj in objects:
@@ -104,12 +104,59 @@ class Mainwindow(QMainWindow, Form):
         self.goal.show()
 
     def set_color(self, color):
-        self.mycolor[self.color_index].setStyleSheet(
-            f"background-color: {self.hex_color[color]};"
-        )
-        self.color_index += 1
-        if self.color_index == 5:
-            self.color_index = 0
+        if color not in self.this_step_color:
+            self.my_color[self.color_index].setStylesheet(
+                f"background-color: {self.hex_color[color]};"
+            )
+            if len(self.this_step_color) == 5:
+                self.this_step_color[self.color_index] = color
+            else:
+                self.this_step_color.append(color)
+            self.color_index += 1
+            if self.color_index == 5:
+                self.color_index = 0
+
+    def confirm(self):
+        if len(self.this_step_color) == 5:
+            self.black = 0
+            self.white = 0
+            self.this_res = 0
+            for i in range(5):
+                self.color_boards[self.color_board_index][i].setStylesheet(
+                    f"background-color: {self.this_step_color[i]};"
+                )
+            for j in range(5):
+                if self.this_step_color[j] in self.Goal:
+                    if self.Goal.index(self.this_step_color[j]) == j:
+                        self.black += 1
+                    else:
+                        self.white += 1
+            for n in range(self.black):
+                self.res_boards[self.color_board_index][self.this_res].setStyleSheet(
+                    f"background-color: #000000;"
+                )
+                self.this_res += 1
+                for m in range(self.white):
+                    self.res_boards[self.color_board_index][
+                        self.this_res
+                    ].setStyleSheet(f"background-color: #ffffff;")
+                    self.this_res += 1
+                for t in range(5 - self.black - self.white):
+                    self.res_boards[self.color_board_index][-1 * (t + 1)].hide()
+                self.Boards[self.color_board_index].show()
+                self.Results[self.color_board_index].show()
+                self.this_step_color = []
+                self.color_board_index += 1
+                for i in range(5):
+                    self.mycolor[i].setStyleSheet(f"background-color: #9e9e9e;")
+                if self.black == 5:
+                    self.win_board.show()
+                    self.cover.hide()
+                    self.resetbtn.hide()
+                if self.color_board_index == 12:
+                    self.lose_board.show()
+                    self.cover.hide()
+                    self.resetbtn.hide()
 
 
 app = QApplication(sys.argv)
