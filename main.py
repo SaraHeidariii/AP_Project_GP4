@@ -7,14 +7,39 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 import random
 
 
-
 class Mainwindow(QMainWindow):
     def __init__(self):
-        super(Mainwindow,self).__init__()
-        loadUi("main.ui",self)
-        self.Boards = [self.board_1,self.board_2,self.board_3,self.board_4,self.board_5,self.board_6,self.board_7,self.board_8,self.board_9,self.board_10,self.board_11,self.board_12]
-        self.Results = [self.Res1,self.Res2,self.Res3,self.Res4,self.Res5,self.Res6,self.Res7,self.Res8,self.Res9,self.Res10,self.Res11,self.Res12]
-        
+        super(Mainwindow, self).__init__()
+        loadUi("main.ui", self)
+        self.Boards = [
+            self.board_1,
+            self.board_2,
+            self.board_3,
+            self.board_4,
+            self.board_5,
+            self.board_6,
+            self.board_7,
+            self.board_8,
+            self.board_9,
+            self.board_10,
+            self.board_11,
+            self.board_12,
+        ]
+        self.Results = [
+            self.Res1,
+            self.Res2,
+            self.Res3,
+            self.Res4,
+            self.Res5,
+            self.Res6,
+            self.Res7,
+            self.Res8,
+            self.Res9,
+            self.Res10,
+            self.Res11,
+            self.Res12,
+        ]
+
 
 Form = uic.loadUiType(os.path.join(os.getcwd(), "main.ui"))[0]
 
@@ -59,14 +84,28 @@ class Mainwindow(QMainWindow, Form):
         self.goal.hide()
         self.cover.hide()
         self.confirmbtn.hide()
-        
+
         self.startbtn.clicked.connect(self.start)
 
-        self.hex_color = {"red" : "#ff0000" , "blue" : "#00007f" , "green" : "#005500" , "white" : "#ffffff" , "pink" : "#fcaf95" , "orange" : "#ffaa00" , "yellow" : "#ffff00" , "purple" : "#800080"}
-        self.goal_color = [self.goal1,self.goal2,self.goal3,self.goal4,self.goal5]
+        self.hex_color = {
+            "red": "#ff0000",
+            "blue": "#00007f",
+            "green": "#005500",
+            "white": "#ffffff",
+            "pink": "#fcaf95",
+            "orange": "#ffaa00",
+            "yellow": "#ffff00",
+            "purple": "#800080",
+        }
+        self.goal_color = [self.goal1, self.goal2, self.goal3, self.goal4, self.goal5]
         self.color_index = 0
-        self.mycolor = [self.my_color1,self.my_color2,self.my_color3,self.my_color4,self.my_color5]
-        
+        self.mycolor = [
+            self.my_color1,
+            self.my_color2,
+            self.my_color3,
+            self.my_color4,
+            self.my_color5,
+        ]
 
         self.hex_color = {
             "red": "#ff0000",
@@ -108,11 +147,11 @@ class Mainwindow(QMainWindow, Form):
         self.color_btn.show()
         # self.cover.show()  fln bara check krdne rangaye entekhabie comp
         self.goal.show()
-        
+
         self.hide_object(self.Boards)
         self.hide_object(self.Results)
-        
-        colors = ["red" , "blue" , "green" , "white" , "pink" , "orange" , "yellow" , "purple"]
+
+        colors = ["red", "blue", "green", "white", "pink", "orange", "yellow", "purple"]
         colors = ["red", "blue", "green", "white", "pink", "orange", "yellow", "sky"]
 
         self.Goal = []
@@ -126,6 +165,14 @@ class Mainwindow(QMainWindow, Form):
             colors.pop(index)
             num = num - 1
         self.goal.show()
+
+    def restart(self):
+        self.this_step_color = []
+        self.win_board.hide()
+        self.lose_board.hide()
+        for i in range(5):
+            self.mycolor[i].setStyleSheet(f"background-color: #9e9e9e;")
+        self.color_index = 0
 
     def set_color(self, color):
         if color not in self.this_step_color:
